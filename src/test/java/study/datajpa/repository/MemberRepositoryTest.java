@@ -10,6 +10,7 @@ import study.datajpa.entity.Team;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.*;
 
@@ -143,7 +144,7 @@ class MemberRepositoryTest {
     }
 
     @Test
-    void findByNames(){
+    void findByNames() {
         Member m1 = new Member("AAA", 10);
         Member m2 = new Member("BBB", 20);
 
@@ -151,6 +152,21 @@ class MemberRepositoryTest {
         memberRepository.save(m2);
 
         memberRepository.findByNames(Arrays.asList("AAA", "BBB"));
+    }
+
+    @Test
+    void returnType() {
+        Member m1 = new Member("AAA", 10);
+        Member m2 = new Member("BBB", 20);
+
+        memberRepository.save(m1);
+        memberRepository.save(m2);
+
+        List<Member> result = memberRepository.findListByUsername("asdasd");
+        Optional<Member> findMember = memberRepository.findOptionalByUsername("asdasd");
+
+        System.out.println("result = " + result);
+        System.out.println("findMember = " + findMember);
     }
 
 }
